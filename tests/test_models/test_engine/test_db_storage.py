@@ -3,19 +3,15 @@
 Contains the TestDBStorageDocs and TestDBStorage classes
 """
 
-from datetime import datetime
 import inspect
 import models
 from models.engine import db_storage
 from models.amenity import Amenity
-from models.base_model import BaseModel
 from models.city import City
 from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
-import json
-import os
 import pep8
 import unittest
 DBStorage = db_storage.DBStorage
@@ -41,7 +37,7 @@ class TestDBStorageDocs(unittest.TestCase):
         """Test tests/test_models/test_db_storage.py conforms to PEP8."""
         pep8s = pep8.StyleGuide(quiet=True)
         result = pep8s.check_files(['tests/test_models/test_engine/\
-test_db_storage.py'])
+        test_db_storage.py'])
         self.assertEqual(result.total_errors, 0,
                          "Found code style errors (and warnings).")
 
@@ -68,21 +64,52 @@ test_db_storage.py'])
                             "{:s} method needs a docstring".format(func[0]))
 
 
-class TestFileStorage(unittest.TestCase):
+class TestDBStorage(unittest.TestCase):
     """Test the FileStorage class"""
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    @unittest.skipIf(models.storage_t != 'db', "testing db storage")
     def test_all_returns_dict(self):
         """Test that all returns a dictionaty"""
         self.assertIs(type(models.storage.all()), dict)
 
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    @unittest.skipIf(models.storage_t != 'db', "testing db storage")
     def test_all_no_class(self):
         """Test that all returns all rows when no class is passed"""
 
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    @unittest.skipIf(models.storage_t != 'db', "testing db storage")
     def test_new(self):
         """test that new adds an object to the database"""
 
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    @unittest.skipIf(models.storage_t != 'db', "testing db storage")
     def test_save(self):
-        """Test that save properly saves objects to file.json"""
+        """Test that save properly saves objects to database"""
+
+    @unittest.skipIf(models.storage_t != 'db', "testing db storage")
+    def test_get(self):
+        """Test that get retrieves a specific object"""
+        state = State(name="Virginia")
+        state.save()
+        response = models.storage.get(State, state.id)
+        self.assertEqual(response.id, state.id)
+
+    @unittest.skipIf(models.storage_t != 'db', "testing db storage")
+    def test_count(self):
+        """Test that count gets the correct number of objects stored"""
+        first_count = models.storage.count(State)
+        state1 = State(name="Texas")
+        state1.save()
+        second_count = models.storage.count(State)
+        state2 = State(name="Hawai")
+        state2.save()
+        third_count = models.storage.count(State)
+        self.assertTrue((first_count + 1) == second_count)
+        self.assertTrue((first_count + 2) == third_count)
+        self.assertTrue((second_count + 1) == third_count)
+
+    @unittest.skipIf(models.storage_t != 'db', "testing db storage")
+    def test_count_class_None(self):
+        """Test that count gets the correct number of objects stored"""
+        first_count = models.storage.count()
+        state1 = State(name="Texas")
+        state1.save()
+        second_count = models.storage.count()
+        self.assertTrue((first_count + 1) == second_count)
