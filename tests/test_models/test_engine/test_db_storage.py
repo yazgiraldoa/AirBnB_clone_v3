@@ -66,24 +66,24 @@ class TestDBStorageDocs(unittest.TestCase):
 
 class TestDBStorage(unittest.TestCase):
     """Test the FileStorage class"""
-    @unittest.skipIf(models.storage_t != 'db', "testing db storage")
+    @unittest.skipIf(models.storage_t != "db", "testing db storage")
     def test_all_returns_dict(self):
         """Test that all returns a dictionaty"""
         self.assertIs(type(models.storage.all()), dict)
 
-    @unittest.skipIf(models.storage_t != 'db', "testing db storage")
+    @unittest.skipIf(models.storage_t != "db", "testing db storage")
     def test_all_no_class(self):
         """Test that all returns all rows when no class is passed"""
 
-    @unittest.skipIf(models.storage_t != 'db', "testing db storage")
+    @unittest.skipIf(models.storage_t != "db", "testing db storage")
     def test_new(self):
         """test that new adds an object to the database"""
 
-    @unittest.skipIf(models.storage_t != 'db', "testing db storage")
+    @unittest.skipIf(models.storage_t != "db", "testing db storage")
     def test_save(self):
         """Test that save properly saves objects to database"""
 
-    @unittest.skipIf(models.storage_t != 'db', "testing db storage")
+    @unittest.skipIf(models.storage_t != "db", "testing db storage")
     def test_get(self):
         """Test that get retrieves a specific object"""
         state = State(name="Virginia")
@@ -91,7 +91,23 @@ class TestDBStorage(unittest.TestCase):
         response = models.storage.get(State, state.id)
         self.assertEqual(response.id, state.id)
 
-    @unittest.skipIf(models.storage_t != 'db', "testing db storage")
+    @unittest.skipIf(models.storage_t != "db", "testing db storage")
+    def test_get_cls_str(self):
+        """Test that get retrieves a specific object"""
+        state = State(name="Virginia")
+        state.save()
+        response = models.storage.get("State", state.id)
+        self.assertEqual(response.id, state.id)
+
+    @unittest.skipIf(models.storage_t != "db", "testing db storage")
+    def test_get_wrong_cls(self):
+        """Test that get retrieves a specific object"""
+        state = State(name="Virginia")
+        state.save()
+        response = models.storage.get("Stat", state.id)
+        self.assertTrue(response is None)
+
+    @unittest.skipIf(models.storage_t != "db", "testing db storage")
     def test_count(self):
         """Test that count gets the correct number of objects stored"""
         first_count = models.storage.count(State)
@@ -105,11 +121,28 @@ class TestDBStorage(unittest.TestCase):
         self.assertTrue((first_count + 2) == third_count)
         self.assertTrue((second_count + 1) == third_count)
 
-    @unittest.skipIf(models.storage_t != 'db', "testing db storage")
-    def test_count_class_None(self):
+    @unittest.skipIf(models.storage_t != "db", "testing db storage")
+    def test_count_class_none(self):
         """Test that count gets the correct number of objects stored"""
         first_count = models.storage.count()
         state1 = State(name="Texas")
         state1.save()
         second_count = models.storage.count()
         self.assertTrue((first_count + 1) == second_count)
+
+    @unittest.skipIf(models.storage_t != "db", "testing db storage")
+    def test_count_cls_str(self):
+        """Test that get retrieves a specific object"""
+        first_count = models.storage.count("State")
+        state = State(name="Virginia")
+        state.save()
+        second_count = models.storage.count("State")
+        self.assertTrue((first_count + 1) == second_count)
+
+    @unittest.skipIf(models.storage_t != "db", "testing db storage")
+    def test_count_wrong_cls(self):
+        """Test that get retrieves a specific object"""
+        state = State(name="Virginia")
+        state.save()
+        second_count = models.storage.count("Stat")
+        self.assertTrue(second_count == 0)
