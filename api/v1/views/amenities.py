@@ -62,16 +62,16 @@ def create_amenity():
                  strict_slashes=False)
 def update_amenity(amenity_id):
     """Method that updates an Amenity and save changes in storage"""
-    json = request.get_json()
-    if not json:
-        return "Not a JSON", 400
-
     amenity = storage.get(Amenity, amenity_id)
     if not amenity:
         abort(404)
+
+    json = request.get_json()
+    if not json:
+        return "Not a JSON", 400
 
     for key, value in json.items():
         if key != "id" and key != "created_at" and key != "updated_at":
             setattr(amenity, key, value)
     storage.save()
-    return jsonify(amenity.to_dict()), 200
+    return jsonify(storage.get(Amenity, amenity.id)), 200
