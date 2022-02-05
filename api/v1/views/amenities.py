@@ -54,7 +54,7 @@ def create_amenity():
     storage.new(new_amenity)
     storage.save()
 
-    return jsonify(storage.get(new_amenity.id)), 201
+    return jsonify(storage.get(Amenity, new_amenity.id).to_dict()), 201
 
 
 @app_views.route("/amenities/<amenity_id>",
@@ -74,4 +74,4 @@ def update_amenity(amenity_id):
         if key != "id" and key != "created_at" and key != "updated_at":
             setattr(amenity, key, value)
     storage.save()
-    return jsonify(storage.get(Amenity, amenity.id)), 200
+    return jsonify(storage.get(Amenity, amenity.id).to_dict()), 200
