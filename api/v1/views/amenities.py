@@ -1,0 +1,77 @@
+#!/usr/bin/python3
+"""
+View for Amenity objects
+that handles all default
+RESTFul API actions
+"""
+from flask import jsonify, abort, request
+from api.v1.views import app_views
+from models import storage
+from models.amenity import Amenity
+
+
+@app_views.route("/amenities", methods=["GET"], strict_slashes=False)
+def all_amenities():
+    """Method that returns JSON with all amenities"""
+    all_amenities = storage.all(Amenity)
+    all_amenities = [amenity.to_dict() for amenity in all_amenities.values()]
+    return jsonify(all_amenities)
+
+
+@app_views.route("amenities/<amenity_id>",
+                 methods=["GET"],
+                 strict_slashes=False)
+def one_amenity(amenity_id):
+    """Method that get an Amentity from storage with specific id"""
+    amenity = storage.get(Amenity, amenity_id)
+    if not amenity:
+        abort(404)
+    return jsonify(amenity.to_dict())
+
+
+@app_views.route("/amenities/<amenity_id>",
+                 methods=["DELETE"],
+                 strict_slashes=False)
+def delete_amenity(amenity_id):
+    """Method that deletes an Amenity and save change in storage"""
+    amenity = storage.get(Amenity, amenity_id)
+    if not amenity:
+        abort(404)
+    storage.delete(amenity)
+    storage.save()
+    return jsonify({}), 200
+
+
+@app_views.route("/amenities/", methods=["POST"], strict_slashes=False)
+def create_amenity():
+    """Method that creates new amenity and save it in storage"""
+    json = request.get_json()
+    if not json:
+        return "Not a JSON", 400
+    if not json.get("name"):
+        return "Missing name", 400
+    new_amenity = Amenity(**json)
+    storage.new(new_amenity)
+    storage.save()
+
+    return jsonify(storage.get(new_amenity.id)), 201
+
+
+@app_views.route("/amenities/<amenity_id>",
+                 methods=["PUT"],
+                 strict_slashes=False)
+def update_amenity(amenity_id):
+    """Method that updates an Amenity and save changes in storage"""
+    json = request.get_json()
+    if not json:
+        return "Not a JSON", 400
+
+    amenity = storage.get(Amenity, amenity_id)
+    if not amenity:
+        abort(404)
+
+    for key, value in json.items():
+        if key != "id" and key != "created_at" and key != "updated_at":
+            setattr(amenity, key, value)
+    storage.save()
+    return jsonify(amenity.to_dict()), 200
