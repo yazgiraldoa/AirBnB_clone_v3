@@ -65,6 +65,8 @@ def update_State(state_id):
         return "Not a JSON", 400
 
     state = storage.get(State, state_id)
+    if not state:
+        abort(404)
     for key, value in json.items():
         if key != "id" and key != "created_at" and key != "updated_at":
             setattr(state, key, value)
