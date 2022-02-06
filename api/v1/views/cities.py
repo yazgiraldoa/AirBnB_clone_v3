@@ -4,6 +4,7 @@ View for City objects that handles
 all default RESTFul API actions
 """
 from flask import jsonify, abort, request
+from datetime import datetime
 from api.v1.views import app_views
 from models import storage
 from models.state import State
@@ -81,5 +82,6 @@ def update_city(city_id):
     for key, value in json.items():
         if key not in not_allowed:
             setattr(city, key, value)
+    city.updated_at = datetime.utcnow()
     storage.save()
-    return jsonify(city.to_dict()), 201
+    return jsonify(city.to_dict()), 200
