@@ -4,7 +4,6 @@ View for City objects that handles
 all default RESTFul API actions
 """
 from flask import jsonify, abort, request
-from datetime import datetime
 from api.v1.views import app_views
 from models import storage
 from models.state import State
@@ -16,12 +15,13 @@ from models.city import City
 def all_cities_in_state(state_id):
     """Method that retrieves the list of all City objects of a State"""
     city_objs = storage.all(City)
+    state = storage.get(State, state_id)
     cities_list = []
+    if not state:
+        abort(404)
     for city in city_objs.values():
         if city.state_id == state_id:
             cities_list.append(city.to_dict())
-    if len(cities_list) == 0:
-        abort(404, description="Cities not found")
     return jsonify(cities_list)
 
 
@@ -31,7 +31,7 @@ def city_by_id(city_id):
     """Method that retrieves a City object by id"""
     city = storage.get(City, city_id)
     if not city:
-        abort(404, description="City not found")
+        abort(404)
     return jsonify(city.to_dict())
 
 
@@ -41,7 +41,7 @@ def delete_city_by_id(city_id):
     """Method that deletes a City object by id"""
     city = storage.get(City, city_id)
     if not city:
-        abort(404, description="City not found")
+        abort(404)
     storage.delete(city)
     storage.save()
     return jsonify({}), 200
@@ -51,15 +51,15 @@ def delete_city_by_id(city_id):
                  strict_slashes=False)
 def create_city(state_id):
     """Method that creates a City object"""
+    state = storage.get(State, state_id)
+    if not state:
+        abort(404)
+
     json = request.get_json()
     if not json:
         return "Not a JSON", 400
     if not json.get("name"):
         return "Missing name", 400
-
-    state = storage.get(State, state_id)
-    if not state:
-        abort(404, description="State not found")
 
     json["state_id"] = state_id
     city = City(**json)
@@ -71,17 +71,17 @@ def create_city(state_id):
 @app_views.route("/cities/<city_id>", methods=["PUT"], strict_slashes=False)
 def update_city(city_id):
     """Method that updates a City object"""
+    city = storage.get(City, city_id)
+    if not city:
+        abort(404)
+
     json = request.get_json()
     if not json:
         return "Not a JSON", 400
 
-    city = storage.get(City, city_id)
-    if not city:
-        abort(404, description="City not found")
     not_allowed = ["id", "state_id", "created_at", "updated_at"]
     for key, value in json.items():
         if key not in not_allowed:
             setattr(city, key, value)
-    city.updated_at = datetime.utcnow()
     storage.save()
     return jsonify(city.to_dict()), 200
