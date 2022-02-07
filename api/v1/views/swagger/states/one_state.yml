@@ -1,0 +1,30 @@
+Get State by id
+Returns single State found by id
+---
+tags:
+  - States
+
+parameters:
+  - name: state_id
+    in: path
+    type: string
+    required: true
+
+definitions:
+  State:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      created_at:
+        type: string
+      updated_at:
+        type: string
+
+responses:
+  200:
+    description: State found
+  404:
+    description: State not found

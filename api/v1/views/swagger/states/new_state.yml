@@ -1,0 +1,39 @@
+Create New State
+Returns the dictionary representation of the new State
+---
+tags:
+  - States
+
+consumes:
+  - application/json
+parameters:
+  - state_id: string
+  - name: body
+    in: body
+    required: true
+    schema:
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Name that is representing a State
+
+definitions:
+  State:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      created_at:
+        type: string
+      updated_at:
+        type: string
+
+responses:
+  201:
+    description: State created
+  400:
+    description: Not a JSON or Missing name

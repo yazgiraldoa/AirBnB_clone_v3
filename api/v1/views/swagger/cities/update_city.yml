@@ -1,0 +1,45 @@
+Update City
+Returns the dictionary representation of the City updated
+---
+tags:
+  - Cities
+
+consumes:
+  - application/json
+parameters:
+  - name: city_id
+    in: path
+    type: string
+  - name: body
+    in: body
+    required: true
+    schema:
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Name that is representing a City
+
+definitions:
+  City:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      state_id:
+        type: string
+      created_at:
+        type: string
+      updated_at:
+        type: string
+
+responses:
+  200:
+    description: City updated
+  400:
+    description: Not a JSON
+  404:
+    description: City not found

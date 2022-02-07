@@ -1,0 +1,22 @@
+Get all States
+No parameters required, by default this method return a list of all States
+---
+tags:
+  - States
+
+definitions:
+  State:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      created_at:
+        type: string
+      updated_at:
+        type: string
+
+responses:
+  200:
+    description: List of all States

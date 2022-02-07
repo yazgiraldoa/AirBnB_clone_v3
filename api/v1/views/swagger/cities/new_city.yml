@@ -1,0 +1,44 @@
+Create new City
+Returns the dictionary respresentation of the new City
+---
+tags:
+  - Cities
+
+consumes:
+  - application/json
+parameters:
+  - name: city_id
+    in: path
+    type: string
+    required: true
+  - name: body
+    in: body
+    required: true
+    schema:
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Name that is representing a City
+
+definitions:
+  City:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      state_id:
+        type: string
+      created_at:
+        type: string
+      updated_at:
+        type: string
+
+responses:
+  201:
+    description: City created
+  400:
+    description: Not a JSON or Missing name

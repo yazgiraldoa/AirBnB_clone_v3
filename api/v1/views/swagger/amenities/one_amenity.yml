@@ -1,0 +1,32 @@
+Get Amenity by id
+Returns single Amenity found by id
+---
+tags:
+  - Amenities
+
+parameters:
+  - name: amenity_id
+    in: path
+    type: string
+    required: true
+
+definitions:
+  Amenity:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      state_id:
+        type: string
+      created_at:
+        type: string
+      updated_at:
+        type: string
+
+responses:
+  201:
+    description: Amenity created
+  400:
+    description: Not a JSON or Missing name
