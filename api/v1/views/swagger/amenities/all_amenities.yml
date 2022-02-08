@@ -1,0 +1,9 @@
+Get all Amenities
+No parameters required, by default this method return a list of all Amenities
+---
+tags:
+  - Amenities
+
+responses:
+  200:
+    description: List of all Amenities

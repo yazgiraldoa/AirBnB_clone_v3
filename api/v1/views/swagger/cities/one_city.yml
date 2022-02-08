@@ -1,0 +1,17 @@
+Get City by id
+Returns single City found by id
+---
+tags:
+  - Cities
+
+parameters:
+  - name: city_id
+    in: path
+    type: string
+    required: true
+
+responses:
+  200:
+    description: City found
+  404:
+    description: City not found

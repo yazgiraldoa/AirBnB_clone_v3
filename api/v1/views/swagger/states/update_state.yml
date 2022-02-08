@@ -1,0 +1,25 @@
+Update State
+Returns the dictionary representation of the State updated
+---
+tags:
+  - States
+
+consumes:
+  - application/json
+parameters:
+  - name: state_id
+    in: path
+    type: string
+  - name: State
+    in: body
+    required: true
+    schema:
+      $ref: "#/definitions/State"
+
+responses:
+  200:
+    description: State updated
+  400:
+    description: Not a JSON
+  404:
+    description: State not found

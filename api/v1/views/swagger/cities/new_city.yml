@@ -1,0 +1,34 @@
+Create new City
+Returns the dictionary respresentation of the new City
+---
+tags:
+  - Cities
+
+consumes:
+  - application/json
+parameters:
+  - name: state_id
+    in: path
+    type: string
+    required: true
+  - name: City
+    in: body
+    required: true
+    schema:
+      $ref: "#/definitions/City"
+
+definitions:
+  City:
+    type: object
+    properties:
+      name:
+        type: string
+        default: "San Francisco"
+      state_id:
+        type: string
+
+responses:
+  201:
+    description: City created
+  400:
+    description: Not a JSON or Missing name

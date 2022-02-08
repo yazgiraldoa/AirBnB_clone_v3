@@ -1,0 +1,23 @@
+Update User by id
+Keep in mind, you can't update email
+
+---
+tags:
+  - Users
+
+parameters:
+  - name: user_id
+    in: path
+  - name: User
+    in: body
+    required: true
+    schema:
+      $ref: "#/definitions/User"
+
+responses:
+  200:
+    description: User updated
+  404:
+    description: User not found
+  400:
+    description: Not a JSON

@@ -1,0 +1,16 @@
+Delete Place by id
+---
+tags:
+  - Places
+
+parameters:
+  - name: place_id
+    in: path
+    type: string
+    required: true
+
+responses:
+  200:
+    description: Place deleted
+  404:
+    description: Place not found

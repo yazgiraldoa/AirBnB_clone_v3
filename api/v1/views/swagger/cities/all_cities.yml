@@ -1,0 +1,15 @@
+Get all Cities
+This method return a list of all Cities
+---
+tags:
+  - Cities
+
+parameters:
+  - name: state_id
+    in: path
+    type: string
+    required: true
+
+responses:
+  200:
+    description: List of all Cities

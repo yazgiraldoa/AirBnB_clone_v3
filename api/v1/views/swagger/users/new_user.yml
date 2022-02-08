@@ -1,0 +1,34 @@
+Create new User
+---
+tags:
+  - Users
+
+parameters:
+  - name: body
+    in: body
+    required: true
+    schema:
+      $ref: "#/definitions/User"
+
+definitions:
+  User:
+    type: object
+    properties:
+      email:
+        type: string
+        default: "gui@hbtn.io"
+      password:
+        type: string
+        default: "guipwd"
+      first_name:
+        type: string
+        default: "Guillaume"
+      last_name:
+        type: string
+        default: "Snow"
+
+responses:
+  200:
+    description: User deleted
+  404:
+    description: User not found

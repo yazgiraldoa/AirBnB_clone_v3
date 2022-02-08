@@ -1,0 +1,16 @@
+Delete Amenity by id
+---
+tags:
+  - Amenities
+
+parameters:
+  - name: amenity_id
+    in: path
+    type: string
+    required: true
+
+responses:
+  200:
+    description: Amenity deleted
+  404:
+    description: Amenity not found

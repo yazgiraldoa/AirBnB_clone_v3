@@ -1,0 +1,28 @@
+Create New State
+Returns the dictionary representation of the new State
+---
+tags:
+  - States
+
+consumes:
+  - application/json
+parameters:
+  - name: State
+    in: body
+    required: true
+    schema:
+      $ref: "#/definitions/State"
+
+definitions:
+  State:
+    type: object
+    properties:
+      name:
+        type: string
+        default: "California"
+
+responses:
+  201:
+    description: State created
+  400:
+    description: Not a JSON or Missing name

@@ -1,0 +1,17 @@
+Get User by id
+Returns single Amenity found by id
+---
+tags:
+  - Users
+
+parameters:
+  - name: user_id
+    in: path
+    type: string
+    required: true
+
+responses:
+  200:
+    description: Return JSON respresentation of current User
+  404:
+    description: User not found

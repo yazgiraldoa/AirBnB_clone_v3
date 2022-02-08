@@ -9,10 +9,17 @@ from flask import Flask, jsonify
 from models import storage
 from os import getenv
 from flask_cors import CORS
+from flasgger import Swagger
 
 app = Flask(__name__)
+app.config['SWAGGER'] = {'title': 'AirBnB_Clone',
+                         'description': 'Application that clones \
+                             AirBnB page with all its features',
+                         'version': "v3"}
 app.register_blueprint(app_views)
 cors = CORS(app, resources={r"*": {"origins": "0.0.0.0"}})
+
+swagger = Swagger(app)
 
 
 @app.errorhandler(404)

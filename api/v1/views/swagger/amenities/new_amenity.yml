@@ -1,0 +1,30 @@
+Create new Amenity
+Returns the dictionary respresentation of the new Amenity
+---
+tags:
+  - Amenities
+
+consumes:
+  - application/json
+parameters:
+  - name: Amenity
+    in: body
+    required: true
+    schema:
+      $ref: "#/definitions/Amenity"
+      required:
+        - name
+
+definitions:
+  Amenity:
+    type: object
+    properties:
+      name:
+        type: string
+        default: "Wifi"
+
+responses:
+  201:
+    description: Amenity created
+  400:
+    description: Not a JSON or Missing name

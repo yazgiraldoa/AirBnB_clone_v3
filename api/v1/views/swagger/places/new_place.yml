@@ -1,0 +1,56 @@
+Create new Place
+Returns the dictionary respresentation of the new Place
+---
+tags:
+  - Places
+
+consumes:
+  - application/json
+parameters:
+  - name: city_id
+    in: path
+    type: string
+    required: true
+  - name: body
+    in: body
+    required: true
+    schema:
+      $ref: "#/definitions/Place"
+
+definitions:
+  Place:
+    type: object
+    properties:
+      name:
+        type: string
+        default: "Lovely_place"
+      city_id:
+        type: string
+      user_id:
+        type: string
+      description:
+        type: string
+      number_rooms:
+        type: integer
+        default: 3
+      number_bathrooms:
+        type: integer
+        default: 1
+      max_guest:
+        type: integer
+        default: 6
+      price_by_night:
+        type: integer
+        default: 120
+      latitude:
+        type: number
+        default: 37.773972
+      longitude:
+        type: number
+        default: 122.431297
+
+responses:
+  201:
+    description: Place created
+  400:
+    description: Not a JSON, missing name or missing user_id

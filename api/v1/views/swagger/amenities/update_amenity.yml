@@ -1,0 +1,25 @@
+Update Amenity by id
+Returns the dictionary respresentation of the Amenity updated
+---
+tags:
+  - Amenities
+
+consumes:
+  - application/json
+parameters:
+  - name: amenity_id
+    in: path
+    required: true
+  - name: body
+    in: body
+    required: true
+    schema:
+      $ref: "#/definitions/Amenity"
+
+responses:
+  200:
+    description: Amenity updated
+  400:
+    description: Not a JSON or Missing name
+  404:
+    description: Amenity not found

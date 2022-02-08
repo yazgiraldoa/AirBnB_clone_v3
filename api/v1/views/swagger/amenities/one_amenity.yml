@@ -1,0 +1,19 @@
+Get Amenity by id
+Returns single Amenity found by id
+---
+tags:
+  - Amenities
+
+parameters:
+  - name: amenity_id
+    in: path
+    type: string
+    required: true
+    schema:
+      $ref: "#/definitions/Amenity"
+
+responses:
+  200:
+    description: Amenity found
+  404:
+    description: Amenity not found

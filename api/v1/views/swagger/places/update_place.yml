@@ -1,0 +1,26 @@
+Update Place
+Returns the dictionary respresentation of the updated Place
+---
+tags:
+  - Places
+
+consumes:
+  - application/json
+parameters:
+  - name: place_id
+    in: path
+    type: string
+    required: true
+  - name: body
+    in: body
+    required: true
+    schema:
+      $ref: "#/definitions/Place"
+
+responses:
+  200:
+    description: Place updated
+  400:
+    description: Not a JSON
+  404:
+    description: Place not found

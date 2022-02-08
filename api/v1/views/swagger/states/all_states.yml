@@ -1,0 +1,9 @@
+Get all States
+No parameters required, by default this method return a list of all States
+---
+tags:
+  - States
+
+responses:
+  200:
+    description: List of all States
