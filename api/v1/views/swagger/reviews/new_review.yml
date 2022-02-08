@@ -1,0 +1,35 @@
+Create new Review
+Returns the dictionary respresentation of the new Review
+---
+tags:
+  - Reviews
+
+consumes:
+  - application/json
+parameters:
+  - name: place_id
+    in: path
+    type: string
+    required: true
+  - name: Review
+    in: body
+    required: true
+    schema:
+      $ref: "#/definitions/Review"
+
+definitions:
+  Review:
+    type: object
+    properties:
+      text:
+        type: string
+      place_id:
+        type: string
+      user_id:
+        type: string
+
+responses:
+  201:
+    description: Review created
+  400:
+    description: Not a JSON, missing user_id or missing text

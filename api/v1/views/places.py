@@ -9,10 +9,11 @@ from models import storage
 from models.place import Place
 from models.city import City
 from models.user import User
-
+from flasgger import swag_from
 
 @app_views.route("/cities/<city_id>/places", methods=["GET"],
                  strict_slashes=False)
+@swag_from('swagger/places/all_places.yml')
 def all_places_in_city(city_id):
     """Method that retrieves the list of all Place objects of a City"""
     places_objs = storage.all(Place)
@@ -28,6 +29,7 @@ def all_places_in_city(city_id):
 
 @app_views.route("/places/<place_id>", methods=["GET"],
                  strict_slashes=False)
+@swag_from('swagger/places/one_place.yml')
 def place_by_id(place_id):
     """Method that retrieves a Place object by id"""
     place = storage.get(Place, place_id)
@@ -38,6 +40,7 @@ def place_by_id(place_id):
 
 @app_views.route("/places/<place_id>", methods=["DELETE"],
                  strict_slashes=False)
+@swag_from('swagger/places/del_place.yml')
 def delete_place_by_id(place_id):
     """Method that deletes a Place object by id"""
     place = storage.get(Place, place_id)
@@ -50,6 +53,7 @@ def delete_place_by_id(place_id):
 
 @app_views.route("/cities/<city_id>/places", methods=["POST"],
                  strict_slashes=False)
+@swag_from('swagger/places/new_place.yml')
 def create_place(city_id):
     """Method that creates a Place object"""
     city = storage.get(City, city_id)
@@ -75,6 +79,7 @@ def create_place(city_id):
 
 
 @app_views.route("/places/<place_id>", methods=["PUT"], strict_slashes=False)
+@swag_from('swagger/places/update_place.yml')
 def update_place(place_id):
     """Method that updates a Place object"""
     place = storage.get(Place, place_id)

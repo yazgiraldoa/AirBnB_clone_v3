@@ -10,19 +10,6 @@ parameters:
     type: string
     required: true
 
-definitions:
-  State:
-    type: object
-    properties:
-      id:
-        type: string
-      name:
-        type: string
-      created_at:
-        type: string
-      updated_at:
-        type: string
-
 responses:
   200:
     description: State deleted

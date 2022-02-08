@@ -7,9 +7,11 @@ from flask import jsonify, abort, request
 from api.v1.views import app_views
 from models import storage
 from models.user import User
+from flasgger import swag_from
 
 
 @app_views.route("/users", methods=["GET"], strict_slashes=False)
+@swag_from('swagger/users/all_users.yml')
 def all_users():
     """Method that retrieves the list of all User objects"""
     users = storage.all(User)
@@ -19,6 +21,7 @@ def all_users():
 
 @app_views.route("/users/<user_id>", methods=["GET"],
                  strict_slashes=False)
+@swag_from('swagger/users/one_user.yml')
 def user_by_id(user_id):
     """Method that retrieves a User object by id"""
     user = storage.get(User, user_id)
@@ -29,6 +32,7 @@ def user_by_id(user_id):
 
 @app_views.route("/users/<user_id>", methods=["DELETE"],
                  strict_slashes=False)
+@swag_from('swagger/users/del_user.yml')
 def delete_user_by_id(user_id):
     """Method that deletes a User object by id"""
     user = storage.get(User, user_id)
@@ -40,6 +44,7 @@ def delete_user_by_id(user_id):
 
 
 @app_views.route("/users", methods=["POST"], strict_slashes=False)
+@swag_from('swagger/users/new_user.yml')
 def create_user():
     """Method that creates a User object"""
     json = request.get_json()
@@ -57,6 +62,7 @@ def create_user():
 
 
 @app_views.route("/users/<user_id>", methods=["PUT"], strict_slashes=False)
+@swag_from('swagger/users/update_user.yml')
 def update_user(user_id):
     """Method that updates a User object"""
     user = storage.get(User, user_id)

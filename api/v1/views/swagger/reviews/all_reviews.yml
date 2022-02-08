@@ -1,0 +1,15 @@
+Get all Reviews
+This method return a list of all Reviews
+---
+tags:
+  - Reviews
+
+parameters:
+  - name: place_id
+    in: path
+    type: string
+    required: true
+
+responses:
+  200:
+    description: List of all Reviews

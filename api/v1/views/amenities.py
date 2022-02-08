@@ -35,6 +35,7 @@ def one_amenity(amenity_id):
 @app_views.route("/amenities/<amenity_id>",
                  methods=["DELETE"],
                  strict_slashes=False)
+@swag_from('swagger/amenities/del_amenity.yml')
 def delete_amenity(amenity_id):
     """Method that deletes an Amenity and save change in storage"""
     amenity = storage.get(Amenity, amenity_id)
@@ -64,6 +65,7 @@ def create_amenity():
 @app_views.route("/amenities/<amenity_id>",
                  methods=["PUT"],
                  strict_slashes=False)
+@swag_from('swagger/amenities/update_amenity.yml')
 def update_amenity(amenity_id):
     """Method that updates an Amenity and save changes in storage"""
     amenity = storage.get(Amenity, amenity_id)

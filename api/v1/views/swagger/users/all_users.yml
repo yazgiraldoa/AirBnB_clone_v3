@@ -1,0 +1,9 @@
+Get all Users
+No parameters required, by default this method return a list of all Users
+---
+tags:
+  - Users
+
+responses:
+  200:
+    description: List of all Users

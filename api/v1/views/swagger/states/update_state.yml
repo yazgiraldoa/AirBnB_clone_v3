@@ -10,27 +10,11 @@ parameters:
   - name: state_id
     in: path
     type: string
-  - name: body
+  - name: State
     in: body
     required: true
     schema:
-      properties:
-        name:
-          type: string
-          description: Name that representing a State
-
-definitions:
-  State:
-    type: object
-    properties:
-      id:
-        type: string
-      name:
-        type: string
-      created_at:
-        type: string
-      updated_at:
-        type: string
+      $ref: "#/definitions/State"
 
 responses:
   200:

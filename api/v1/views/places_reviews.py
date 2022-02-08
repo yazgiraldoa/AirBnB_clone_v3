@@ -10,11 +10,13 @@ from models import storage
 from models.place import Place
 from models.review import Review
 from models.user import User
+from flasgger import swag_from
 
 
 @app_views.route("/places/<place_id>/reviews",
                  methods=["GET"],
                  strict_slashes=False)
+@swag_from('swagger/reviews/all_reviews.yml')
 def all_reviews(place_id):
     """
     Method that get all reviews of Place
@@ -34,6 +36,7 @@ def all_reviews(place_id):
 @app_views.route("/reviews/<review_id>",
                  methods=["GET"],
                  strict_slashes=False)
+@swag_from('swagger/reviews/one_review.yml')
 def get_review(review_id):
     """Method that get Review with specific id"""
     review = storage.get(Review, review_id)
@@ -45,6 +48,7 @@ def get_review(review_id):
 @app_views.route("/reviews/<review_id>",
                  methods=["DELETE"],
                  strict_slashes=False)
+@swag_from('swagger/reviews/del_review.yml')
 def delete_review(review_id):
     """Method that deletes Review with specific id"""
     review = storage.get(Review, review_id)
@@ -58,6 +62,7 @@ def delete_review(review_id):
 @app_views.route("/places/<place_id>/reviews",
                  methods=["POST"],
                  strict_slashes=False)
+@swag_from('swagger/reviews/new_review.yml')
 def create_review(place_id):
     """Method that creates new Review for place with specific id"""
     place = storage.get(Place, place_id)
@@ -88,6 +93,7 @@ def create_review(place_id):
 @app_views.route("/reviews/<review_id>",
                  methods=["PUT"],
                  strict_slashes=False)
+@swag_from('swagger/reviews/update_review.yml')
 def update_review(review_id):
     """Method that updates Review with specific id"""
     review = storage.get(Review, review_id)

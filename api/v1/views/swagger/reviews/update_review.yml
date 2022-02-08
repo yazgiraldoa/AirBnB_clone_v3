@@ -1,0 +1,26 @@
+Update Review
+Returns the dictionary respresentation of the updated Review
+---
+tags:
+  - Reviews
+
+consumes:
+  - application/json
+parameters:
+  - name: review_id
+    in: path
+    type: string
+    required: true
+  - name: Review
+    in: body
+    required: true
+    schema:
+      $ref: "#/definitions/Review"
+
+responses:
+  200:
+    description: Review updated
+  400:
+    description: Not a JSON
+  404:
+    description: Review not found

@@ -7,30 +7,19 @@ tags:
 consumes:
   - application/json
 parameters:
-  - state_id: string
-  - name: body
+  - name: State
     in: body
     required: true
     schema:
-      required:
-        - name
-      properties:
-        name:
-          type: string
-          description: Name that is representing a State
+      $ref: "#/definitions/State"
 
 definitions:
   State:
     type: object
     properties:
-      id:
-        type: string
       name:
         type: string
-      created_at:
-        type: string
-      updated_at:
-        type: string
+        default: "California"
 
 responses:
   201:

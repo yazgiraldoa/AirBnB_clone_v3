@@ -7,31 +7,21 @@ tags:
 consumes:
   - application/json
 parameters:
-  - name: body
+  - name: Amenity
     in: body
     required: true
     schema:
+      $ref: "#/definitions/Amenity"
       required:
         - name
-      properties:
-        name:
-          type: string
-          description: Name that is representing an Amenity
 
 definitions:
   Amenity:
     type: object
     properties:
-      id:
-        type: string
       name:
         type: string
-      state_id:
-        type: string
-      created_at:
-        type: string
-      updated_at:
-        type: string
+        default: "Wifi"
 
 responses:
   201:

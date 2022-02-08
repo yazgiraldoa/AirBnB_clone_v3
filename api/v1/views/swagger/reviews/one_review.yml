@@ -1,0 +1,17 @@
+Get Review by id
+Returns single Review found by id
+---
+tags:
+  - Reviews
+
+parameters:
+  - name: review_id
+    in: path
+    type: string
+    required: true
+
+responses:
+  200:
+    description: Review found
+  404:
+    description: Review not found

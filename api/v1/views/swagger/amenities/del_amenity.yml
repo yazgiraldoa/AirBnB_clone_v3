@@ -1,5 +1,4 @@
-Get Amenity by id
-Returns single Amenity found by id
+Delete Amenity by id
 ---
 tags:
   - Amenities
@@ -9,11 +8,9 @@ parameters:
     in: path
     type: string
     required: true
-    schema:
-      $ref: "#/definitions/Amenity"
 
 responses:
   200:
-    description: Amenity found
+    description: Amenity deleted
   404:
     description: Amenity not found

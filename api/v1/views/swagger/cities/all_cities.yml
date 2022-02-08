@@ -1,23 +1,14 @@
 Get all Cities
-No parameters required, by default this method return a list of all Cities
+This method return a list of all Cities
 ---
 tags:
   - Cities
 
-definitions:
-  City:
-    type: object
-    properties:
-      id:
-        type: string
-      name:
-        type: string
-      state_id:
-        type: string
-      created_at:
-        type: string
-      updated_at:
-        type: string
+parameters:
+  - name: state_id
+    in: path
+    type: string
+    required: true
 
 responses:
   200:

@@ -14,27 +14,7 @@ parameters:
     in: body
     required: true
     schema:
-      required:
-        - name
-      properties:
-        name:
-          type: string
-          description: Name that is representing a City
-
-definitions:
-  City:
-    type: object
-    properties:
-      id:
-        type: string
-      name:
-        type: string
-      state_id:
-        type: string
-      created_at:
-        type: string
-      updated_at:
-        type: string
+      $ref: "#/definitions/City"
 
 responses:
   200:

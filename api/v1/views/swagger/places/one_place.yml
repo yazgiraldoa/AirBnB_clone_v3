@@ -1,0 +1,17 @@
+Get Place by id
+Returns single Place found by id
+---
+tags:
+  - Places
+
+parameters:
+  - name: place_id
+    in: path
+    type: string
+    required: true
+
+responses:
+  200:
+    description: Place found
+  404:
+    description: Place not found

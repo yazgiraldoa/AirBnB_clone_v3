@@ -7,34 +7,24 @@ tags:
 consumes:
   - application/json
 parameters:
-  - name: city_id
+  - name: state_id
     in: path
     type: string
     required: true
-  - name: body
+  - name: City
     in: body
     required: true
     schema:
-      required:
-        - name
-      properties:
-        name:
-          type: string
-          description: Name that is representing a City
+      $ref: "#/definitions/City"
 
 definitions:
   City:
     type: object
     properties:
-      id:
-        type: string
       name:
         type: string
+        default: "San Francisco"
       state_id:
-        type: string
-      created_at:
-        type: string
-      updated_at:
         type: string
 
 responses:
